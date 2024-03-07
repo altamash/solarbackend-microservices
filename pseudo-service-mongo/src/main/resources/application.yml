@@ -1,0 +1,22 @@
+server:
+  port: 8090
+#  servlet:
+#    context-path: /productsapi
+
+spring:
+  application:
+    name: PSEUDO-SERVICE-MONGO
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      hibernate:
+        ddl-auto: none
+        use-new-id-generator-mappings: false
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  ribbon:
+    ReadTimeout: 160000000
+    ConnectTimeout: 160000000

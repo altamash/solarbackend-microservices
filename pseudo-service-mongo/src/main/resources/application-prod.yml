@@ -1,0 +1,18 @@
+#For deployment to production
+spring:
+  data:
+    mongodb:
+      primary:
+        #uri: mongodb://mongo-sidevdb:7S3gZclkbQevRpTb2lvDnIgTGZhfxTZ3Fct4zQN4HuUEsCQa4ktEdXv1L6hTSUGSoHVyOKIcmOZhE2VUntmzGA%3D%3D@mongo-sidevdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@mongo-sidevdb@
+        uri: ${MONGO_URI}
+        name: proddb-mongo
+      option:
+        socket-keep-alive: true
+        heartbeat-socket-timeout: 20000
+        heartbeat-connect-timeout: 20000
+        max-connection-idle-time: 200000
+
+app:
+  profile: ${PROFILE}
+  behost: ${BEHOST}
+

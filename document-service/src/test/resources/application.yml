@@ -1,0 +1,104 @@
+server:
+  port: 8084
+#  servlet:
+#    context-path: /user
+
+spring:
+  application:
+    name: DOCUMENT-SERVICE
+#  zipkin:
+#    base-url: http://127.0.0.1:9411/
+#  main:
+#    allow-circular-references: true
+#  autoconfigure:
+#    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#    exclude[1]: org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+#    exclude[2]: org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+ribbon:
+  ReadTimeout: 160000000
+  ConnectTimeout: 160000000
+#  batch:
+#    job:
+#      enabled: false
+#    initialize-schema: always
+#    datasource:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+##      url: jdbc:postgresql://localhost:5432/sample
+##      username: sample
+##      password: sample
+#      jpa:
+#        show-sql: true
+#        generate-ddl: false
+#        hibernate:
+#          use-new-id-generator-mappings: SEQUENCE
+#          naming:
+#            implicit-strategy: jpa
+#        properties:
+#          hibernate:
+#            format_sql: true
+#            jdbc:
+#              batch_size: 10
+#            order_inserts: true
+#            order_updates: true
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+#  cache:
+#    jcache:
+#      provider: org.ehcache.jsr107.EhcacheCachingProvider
+
+################################
+#server.port=8081
+#spring.application.name=solarbackend
+
+#spring.cloud.config.uri=http://localhost:8888
+#spring.management.security.enabled=false
+#spring.cloud.config.name=database
+
+
+#eureka:
+#instance:
+#preferIpAddress: true
+#client:
+#registerWithEureka: true
+#fetchRegistry: true
+##fetch-registry: true
+#serviceUrl:
+#defaultZone: http://localhost:8761/eureka/
+#
+#
+##ENABLE DYNAMIC ROUTING
+#management:
+#  endpoints:
+#    routes:
+#      enabled: true
+#    web:
+#      exposure:
+#        include: "*"
+#  security:
+#    enabled: false
+
+#Actuator contains the health indicators used by Eureka Server to determine the health of the service.
+# (By default, Eureka server set the URL to the /info of the service to check the health)
+#management.endpoints.web.exposure.include=*
+
+#app:
+#  storage:
+#    staging:
+#      blobService: blobServiceBaseUrlStaging
+#      azureBlobSasToken: abcxyz12345
+#    production:
+#      blobService: blobServiceBaseUrlProduction
+#      azureBlobSasToken: abcxyz12345

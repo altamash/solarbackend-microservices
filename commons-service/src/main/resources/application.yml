@@ -1,0 +1,59 @@
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+  show-sql: true
+#  application:
+#    name: ${APP-NAME}
+#  datasource:
+#    username: dataadmin
+#    url: jdbc:sqlserver://orchdevdb.database.windows.net:1433;databaseName=orchdevdb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+#    password: solaR@dmiN1235
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.SQLServerDialect
+#    hibernate:
+#      ddl-auto: none
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+#  profiles:
+#    include:
+#      - cache
+#  cache:
+#    jcache:
+#      provider: org.ehcache.jsr107.EhcacheCachingProvider
+#  config:
+#    import: "optional:configserver:${CONFIG_SERVER:http://localhost:8000}"
+#  kafka:
+#    bootstrap-servers: pkc-56d1g.eastus.azure.confluent.cloud:9092
+
+  data:
+    redis:
+      host: 20.172.239.7
+      port: 6379
+  #    password: <REDIS_PASSWORD>
+
+server:
+  port: '8083'
+#  servlet:
+#    context-path: /commons
+
+springdoc:
+  swagger-ui.doc-expansion: none
+
+#swagger:
+##  host: ${BEHOST}
+#  host: http://localhost:8080
+
+ribbon:
+  ReadTimeout: 160000000
+  ConnectTimeout: 160000000

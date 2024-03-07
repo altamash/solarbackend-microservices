@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: PROD-COMMONS-SERVICE
+  kafka:
+    bootstrap-servers: 20.172.239.7:9092
+    consumer:
+      auto-offset-reset: earliest
+
+topic:
+  alert-topic:
+    email:
+      name: email-alert-prod
+      group-id: email-prod
+    priority-email:
+      name: priority-email-alert-prod
+      group-id: priority-email-prod
+    email-sendgrid:
+      name: email-alert-sendgrid-prod
+      group-id: email-sendgrid-prod
+
+notification:
+  suprSend:
+    workSpaceKey: cOF6wubDNwUEPzWD8R5u
+    workSpaceSecret: SS.WSS.OsbeKhTcbFLK6sy41bSJIB2sxM4p3UDlnHONyjfp
+  attachment:
+    directoryReference: attachments
+
+app:
+  profile: prod
+  storage:
+    blobService: https://prsistorage.blob.core.windows.net
+    azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-12-31T00:11:07Z&st=2023-01-03T16:11:07Z&spr=https&sig=UR6DtMXo3AhdDatBbX1Tym119oGKStfcBHjXfJfu0pc%3D
+    container: prod
+
+multitenancy:
+  saas:
+    datasource:
+      connectionString: Database=flexprod; Data Source=flexprod.mysql.database.azure.com; User Id=sidataadmin; Password=s324olaRad!miN512
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+swagger:
+  host: ${BEHOST}

@@ -1,0 +1,36 @@
+server:
+  port: 8082
+
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+  show-sql: true
+
+#  cloud:
+#    config:
+#      import-check:
+#        enabled: false
+
+##44hrs
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
+#
+#ribbon:
+#  ReadTimeout: 160000000
+#  ConnectTimeout: 160000000
+#zuul:
+#  host:
+#    socket-timeout-millis: 160000000
+#    connect-timeout-millis: 160000000

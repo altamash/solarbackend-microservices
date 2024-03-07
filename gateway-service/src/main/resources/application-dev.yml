@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: DEV-GATEWAY-SERVICE
+
+swagger:
+  host: ${BEHOST}
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=devflex; Data Source=devflex.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      connectionString: Database=solardevdb; Data Source=solardevdb.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      #connectionString: Database=sistagedb; Data Source=sistagedb.mysql.database.azure.com; User Id=dataadmin@sistagedb; Password=solaRadmiN3246
+      #connectionString: Database=localhost; Data Source=localhost:3306; User Id=root; Password=
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+#      maxPoolSize: 20          # This is set dynamically, DynamicConnectionParams.MAX_POOL_SIZE
+#      idleTimeout: 30000       # When running as a fixed-size pool (default) the idleTimeout has no effect.
+#      minIdle: 5               # Makes it fixed pool size (recommended by HickariCP). When minimumIdle is not defined it defaults to maximumPoolSize.
+#      maxLifetime: 28800000    # This is set dynamically, DynamicConnectionParams.MAX_LIFE_TIME
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+
+service:
+  names:
+    login: DEV-LOGIN-SERVICE
+    commons: DEV-COMMONS-SERVICE
+    document: DEV-DOCUMENT-SERVICE
+    mpoffer: DEV-MPOFFER-SERVICE
+    prjmanagement: DEV-PROJECT-MANAGEMENT-SERVICE

@@ -1,0 +1,17 @@
+#For deployment to dev
+spring:
+  data:
+    mongodb:
+      primary:
+#        uri: ${MONGO_URI}
+        uri: mongodb+srv://devstg:YfUKD1M3FZG10SYY@devstgdb.xl8rzoa.mongodb.net/?retryWrites=true&w=majority
+        name: mongo-sidevdb
+      option:
+        socket-keep-alive: true
+        heartbeat-socket-timeout: 20000
+        heartbeat-connect-timeout: 20000
+        max-connection-idle-time: 200000
+
+app:
+  profile: ${PROFILE}
+  behost: ${BEHOST}

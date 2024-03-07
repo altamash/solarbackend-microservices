@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: PREPROD-COMMONS-SERVICE
+  kafka:
+    bootstrap-servers: 20.172.239.7:9092
+    consumer:
+      auto-offset-reset: earliest
+
+topic:
+  alert-topic:
+    email:
+      name: email-alert-preprod
+      group-id: email-preprod
+    priority-email:
+      name: priority-email-alert-preprod
+      group-id: priority-email-preprod
+    email-sendgrid:
+      name: email-alert-sendgrid-preprod
+      group-id: email-sendgrid-preprod
+
+notification:
+  suprSend:
+    workSpaceKey: cOF6wubDNwUEPzWD8R5u
+    workSpaceSecret: SS.WSS.OsbeKhTcbFLK6sy41bSJIB2sxM4p3UDlnHONyjfp
+  attachment:
+    directoryReference: attachments
+
+app:
+  profile: preprod
+  storage:
+    blobService: https://centdevstorage.blob.core.windows.net
+    azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-12-30T01:19:22Z&st=2023-03-04T17:19:22Z&spr=https&sig=De9UCXs5oZrYCiG1AdWiHiJsEsBR6LsV0kYxrTj1Ii4%3D
+    container: preprod
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=preprodflex; Data Source=preprodflex.mysql.database.azure.com; User Id=siadmin; Password=SIl0rInform7777
+      connectionString: Database=sipreproddb; Data Source=sipreproddb.mysql.database.azure.com; User Id=siadmin; Password=SIl0rInform7777
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+swagger:
+  host: ${BEHOST}

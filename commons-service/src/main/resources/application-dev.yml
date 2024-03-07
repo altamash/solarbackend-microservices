@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: DEV-COMMONS-SERVICE
+  kafka:
+    bootstrap-servers: 20.172.239.7:9092
+    consumer:
+      auto-offset-reset: earliest
+
+topic:
+  alert-topic:
+    email:
+      name: email-alert
+      group-id: email
+    priority-email:
+      name: priority-email-alert
+      group-id: priority-email
+    email-sendgrid:
+      name: email-alert-sendgrid
+      group-id: email-sendgrid
+
+notification:
+  suprSend:
+    workSpaceKey: HzBDbi3CalBiWpjJJscz
+    workSpaceSecret: SS.WSS.rHOWIvYbK4mPZj8nasQyX3MRNAh22wkbvQdjhQME
+  attachment:
+    directoryReference: attachments
+
+app:
+  profile: dev
+  storage:
+    blobService: https://devstoragesi.blob.core.windows.net
+    azureBlobSasToken: ?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiyx&se=2025-01-01T01:40:43Z&st=2024-01-01T07:40:43Z&spr=https&sig=Imx0r2doZ9Y1nCxnq56yAiKjA%2B0B7kf66XqO%2FvYHIUc%3D
+    container: dev
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=devflex; Data Source=devflex.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      connectionString: Database=solardevdb; Data Source=solardevdb.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+swagger:
+  host: ${BEHOST}

@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: STAGE-COMMONS-SERVICE
+  kafka:
+    bootstrap-servers: 20.172.239.7:9092
+    consumer:
+      auto-offset-reset: earliest
+
+topic:
+  alert-topic:
+    email:
+      name: email-alert-stage
+      group-id: email-stage
+    priority-email:
+      name: priority-email-alert-stage
+      group-id: priority-email-stage
+    email-sendgrid:
+      name: email-alert-sendgrid-stage
+      group-id: email-sendgrid-stage
+
+notification:
+  suprSend:
+    workSpaceKey: HzBDbi3CalBiWpjJJscz
+    workSpaceSecret: SS.WSS.rHOWIvYbK4mPZj8nasQyX3MRNAh22wkbvQdjhQME
+  attachment:
+    directoryReference: attachments
+
+app:
+  profile: stage
+  storage:
+    blobService: https://devstoragesi.blob.core.windows.net
+    azureBlobSasToken: ?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiyx&se=2025-01-01T01:40:43Z&st=2024-01-01T07:40:43Z&spr=https&sig=Imx0r2doZ9Y1nCxnq56yAiKjA%2B0B7kf66XqO%2FvYHIUc%3D
+    container: stage
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=stageflex; Data Source=stageflex.mysql.database.azure.com; User Id=dataadmin; Password=solaRadmiN3246
+      connectionString: Database=stgdbsi; Data Source=stgdbsi.mysql.database.azure.com; User Id=dataadmin; Password=solaRadmiN3246
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+swagger:
+  host: ${BEHOST}

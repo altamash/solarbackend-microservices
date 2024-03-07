@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: PROD-GATEWAY-SERVICE
+
+swagger:
+  host: ${BEHOST}
+
+multitenancy:
+  saas:
+    datasource:
+      connectionString: Database=flexprod; Data Source=flexprod.mysql.database.azure.com; User Id=sidataadmin; Password=s324olaRad!miN512
+      #connectionString: Database=sistagedb; Data Source=sistagedb.mysql.database.azure.com; User Id=dataadmin@sistagedb; Password=solaRadmiN3246
+      #connectionString: Database=localhost; Data Source=localhost:3306; User Id=root; Password=
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+#      maxPoolSize: 20          # This is set dynamically, DynamicConnectionParams.MAX_POOL_SIZE
+#      idleTimeout: 30000       # When running as a fixed-size pool (default) the idleTimeout has no effect.
+#      minIdle: 5               # Makes it fixed pool size (recommended by HickariCP). When minimumIdle is not defined it defaults to maximumPoolSize.
+#      maxLifetime: 28800000    # This is set dynamically, DynamicConnectionParams.MAX_LIFE_TIME
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+
+service:
+  names:
+    login: PROD-LOGIN-SERVICE
+    commons: PROD-COMMONS-SERVICE
+    document: PROD-DOCUMENT-SERVICE
+    mpoffer: PROD-MPOFFER-SERVICE
+    prjmanagement: PROD-PROJECT-MANAGEMENT-SERVICE

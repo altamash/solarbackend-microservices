@@ -1,0 +1,111 @@
+server:
+  port: 8080
+
+spring:
+#  application:
+#    name: ${APP-NAME}
+  cloud:
+    #    config:
+    #      request-read-timeout: 10000
+    #      request-connect-timeout: 10000
+    gateway:
+#      httpclient:
+#        connect-timeout: 5000
+#        response-timeout: 5s
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            #allowedOrigins: "https://sistage.azurewebsites.net, localhost, *"
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            #allowCredentials: true
+  #            allowedMethods:
+  #              - GET
+
+  #            allowedOrigins: "*"
+  #            allowedHeaders: "*"
+  #            allowedMethods:
+  #              - GET
+  #              - POST
+  #              - DELETE
+  #              - PUT
+  #              - OPTIONS
+#        default-filters:
+#          - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+#          - AddResponseHeader=Access-Control-Allow-Origin, *
+
+    config:
+      import-check:
+        enabled: false
+
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    database-platform: org.hibernate.dialect.MySQL8InnoDBDialect
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+#hystrix:
+#  command:
+#    fallbackcmd:
+#      execution:
+#        #        timeout:
+#        #          enabled: false
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 4000
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: hystrix.stream
+#  security:
+#    enabled: false
+
+#security:
+#  basic:
+#    enabled: false
+
+#ribbon:
+#  ReadTimeout: 60000
+#  ConnectTimeout: 60000
+#ribbon:
+#  eureka:
+#    enabled: false
+#  ReadTimeout: 30000
+#  ConnectTimeout: 30000
+#zuul:
+#  host:
+#    socket-timeout-millis: 20000
+#    connect-timeout-millis: 20000
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Authentication
+        url: /v3/api-docs/auth
+      - name: Document Management
+        url: /v3/api-docs/docu
+      - name: MP Offer
+        url: /v3/api-docs/mpo
+      - name: Commons
+        url: /v3/api-docs/commons
+      - name: Project Management
+        url: /v3/api-docs/projectmanagement
+  swagger-ui.doc-expansion: none
+
+#ribbon:
+#  ReadTimeout: 5000
+#  ConnectTimeout: 5000

@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: GATEWAY-SERVICE
+
+swagger:
+  host: http://localhost:8080
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=devflex; Data Source=devflex.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      connectionString: Database=solardevdb; Data Source=solardevdb.mysql.database.azure.com; User Id=dataadmin; Password=solaR@dmiN1235
+      #connectionString: Database=sistagedb; Data Source=sistagedb.mysql.database.azure.com; User Id=dataadmin@sistagedb; Password=solaRadmiN3246
+      #connectionString: Database=localhost; Data Source=localhost:3306; User Id=root; Password=
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+#      maxPoolSize: 20          # This is set dynamically, DynamicConnectionParams.MAX_POOL_SIZE
+                                # Time sharing theory - 2 processes running simultaneously is always SLOWER than one running after the other !!
+                                # pool size = (core_count * 2) + effective_spindle_count
+                                # https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+#      idleTimeout: 30000       # When running as a fixed-size pool (default) the idleTimeout has no effect.
+                                # idleTimeout is meant to shrink the pool from maximumPoolSize down toward minimumIdle when connections are unused in the pool.
+                                # However, when minimumIdle == maximumPoolSize then closing an "idle" connection makes no sense as it will be replaced immediately in the pool.
+#      minIdle: 5               # Makes it fixed pool size (recommended by HickariCP). When minimumIdle is not defined it defaults to maximumPoolSize.
+#      maxLifetime: 28800000    # This is set dynamically, DynamicConnectionParams.MAX_LIFE_TIME
+                                # Configure HikariCP idleTimeout and maxLifeTime settings to be one minute less than
+                                # the wait_timeout of MySQL - MySQL wait_timeout = 28800 seconds default
+                                # https://github.com/brettwooldridge/HikariCP/wiki/FAQ
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0  # The number of hard drives (not SSD). Because each spinning hard disk can be called a spindle.
+                                # For example, for a server with a RAID of 16 disks, the effective_spindle_count should be 16.
+                                # Because HDD usually can handle only one request at a time, the formula here is actually measuring
+                                # how many concurrent I/O requests the server can manage.
+
+service:
+  names:
+    login: LOGIN-SERVICE
+    commons: COMMONS-SERVICE
+    document: DOCUMENT-SERVICE
+    mpoffer: MPOFFER-SERVICE
+    prjmanagement: PROJECT-MANAGEMENT-SERVICE

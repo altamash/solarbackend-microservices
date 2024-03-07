@@ -1,0 +1,35 @@
+#For deployment to preprod
+spring:
+  application:
+    name: PREPROD-DOCUMENT-SERVICE
+
+app:
+  #  application:
+  #    name: INVESTOR-SERVICE
+  storage:
+    blobService: https://centdevstorage.blob.core.windows.net
+    azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-12-30T01:19:22Z&st=2023-03-04T17:19:22Z&spr=https&sig=De9UCXs5oZrYCiG1AdWiHiJsEsBR6LsV0kYxrTj1Ii4%3D
+    container: preprod
+  mongoBaseUrl: https://mongo-preprod.azurewebsites.net/productsapi
+
+multitenancy:
+  saas:
+    datasource:
+#      connectionString: Database=preprodflex; Data Source=preprodflex.mysql.database.azure.com; User Id=siadmin; Password=SIl0rInform7777
+      connectionString: Database=sipreproddb; Data Source=sipreproddb.mysql.database.azure.com; User Id=siadmin; Password=SIl0rInform7777
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+#      maxPoolSize: 20          # This is set dynamically, DynamicConnectionParams.MAX_POOL_SIZE
+#      idleTimeout: 30000       # When running as a fixed-size pool (default) the idleTimeout has no effect.
+#      minIdle: 5               # Makes it fixed pool size (recommended by HickariCP). When minimumIdle is not defined it defaults to maximumPoolSize.
+#      maxLifetime: 28800000    # This is set dynamically, DynamicConnectionParams.MAX_LIFE_TIME
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+#CSV tenant schema list
+tenantSchemas:
+  update: false
+
+swagger:
+  host: ${BEHOST}

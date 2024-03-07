@@ -1,0 +1,34 @@
+#For deployment to production
+spring:
+  application:
+    name: PROD-DOCUMENT-SERVICE
+
+app:
+  #  application:
+  #    name: INVESTOR-SERVICE
+  storage:
+    blobService: https://prsistorage.blob.core.windows.net
+    azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-12-31T00:11:07Z&st=2023-01-03T16:11:07Z&spr=https&sig=UR6DtMXo3AhdDatBbX1Tym119oGKStfcBHjXfJfu0pc%3D
+    container: prod
+  mongoBaseUrl: https://mongo-prod.azurewebsites.net/productsapi
+
+multitenancy:
+  saas:
+    datasource:
+      connectionString: Database=flexprod; Data Source=flexprod.mysql.database.azure.com; User Id=sidataadmin; Password=s324olaRad!miN512
+      driverClassName: com.mysql.cj.jdbc.Driver
+      connectionTimeout: 30000
+#      maxPoolSize: 20          # This is set dynamically, DynamicConnectionParams.MAX_POOL_SIZE
+#      idleTimeout: 30000       # When running as a fixed-size pool (default) the idleTimeout has no effect.
+#      minIdle: 5               # Makes it fixed pool size (recommended by HickariCP). When minimumIdle is not defined it defaults to maximumPoolSize.
+#      maxLifetime: 28800000    # This is set dynamically, DynamicConnectionParams.MAX_LIFE_TIME
+      leakDetectionThreshold: 300000
+      poolName: saas-schema-connection-pool
+      effectiveSpindleCount: 0
+
+#CSV tenant schema list
+tenantSchemas:
+  update: false
+
+swagger:
+  host: ${BEHOST}

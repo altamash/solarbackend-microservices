@@ -1,0 +1,94 @@
+server:
+  port: 8084
+
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    database-platform: org.hibernate.dialect.MySQLDialect
+  show-sql: true
+
+
+ribbon:
+  ReadTimeout: 160000000
+  ConnectTimeout: 160000000
+#  batch:
+#    job:
+#      enabled: false
+#    initialize-schema: always
+#    datasource:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+##      url: jdbc:postgresql://localhost:5432/sample
+##      username: sample
+##      password: sample
+#      jpa:
+#        show-sql: true
+#        generate-ddl: false
+#        hibernate:
+#          use-new-id-generator-mappings: SEQUENCE
+#          naming:
+#            implicit-strategy: jpa
+#        properties:
+#          hibernate:
+#            format_sql: true
+#            jdbc:
+#              batch_size: 10
+#            order_inserts: true
+#            order_updates: true
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+#  cache:
+#    jcache:
+#      provider: org.ehcache.jsr107.EhcacheCachingProvider
+
+################################
+#server.port=8081
+#spring.application.name=solarbackend
+
+#spring.cloud.config.uri=http://localhost:8888
+#spring.management.security.enabled=false
+#spring.cloud.config.name=database
+
+
+#eureka:
+#instance:
+#preferIpAddress: true
+#client:
+#registerWithEureka: true
+#fetchRegistry: true
+##fetch-registry: true
+#serviceUrl:
+#defaultZone: http://localhost:8761/eureka/
+#
+#
+##ENABLE DYNAMIC ROUTING
+#management:
+#  endpoints:
+#    routes:
+#      enabled: true
+#    web:
+#      exposure:
+#        include: "*"
+#  security:
+#    enabled: false
+
+#Actuator contains the health indicators used by Eureka Server to determine the health of the service.
+# (By default, Eureka server set the URL to the /info of the service to check the health)
+#management.endpoints.web.exposure.include=*
+
+#app:
+#  storage:
+#    staging:
+#      blobService: https://devstoragesi.blob.core.windows.net
+#      azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiyx&se=2023-12-31T17:29:34Z&st=2023-01-02T09:29:34Z&spr=https&sig=Rm36UsxcFqzdFVi3n2tsQPIlmfpAlmvhhuMnpV%2Fp5zU%3D
+#    production:
+#      blobService: https://devstoragesi.blob.core.windows.net
+#      azureBlobSasToken: ?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiyx&se=2023-12-31T17:29:34Z&st=2023-01-02T09:29:34Z&spr=https&sig=Rm36UsxcFqzdFVi3n2tsQPIlmfpAlmvhhuMnpV%2Fp5zU%3D

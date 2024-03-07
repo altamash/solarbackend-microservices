@@ -1,0 +1,554 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.8.4-openjdk-17-slim
+#image: openjdk:17-oracle
+#image: git:1.0.7
+
+clone:
+  depth: full
+pipelines:
+  branches:
+    development:
+      - step:
+          name: Build and Deploy LOGIN-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"login-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd login-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-login-service -g SIDevelopmentBE -s sidevspring --artifact-path target/LOGIN-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of LOGIN-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy COMMONS-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"COMMONS-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd COMMONS-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-commons-service -g SIDevelopmentBE -s sidevspring --artifact-path target/COMMONS-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of COMMONS-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy DOCUMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"DOCUMENT-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd DOCUMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-document-service -g SIDevelopmentBE -s sidevspring --artifact-path target/DOCUMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of DOCUMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy MPOFFER-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"MPOFFER-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd MPOFFER-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-mpoffer-service -g SIDevelopmentBE -s sidevspring --artifact-path target/MPOFFER-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of MPOFFER-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy PROJECT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"PROJECT-MANAGEMENT/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd PROJECT-MANAGEMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-project-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/PROJECT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of PROJECT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy CHAT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"CHAT-MANAGEMENT/"* ]]; then
+              curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+              az config set extension.use_dynamic_install=yes_without_prompt &&
+              az login --service-principal -u $appId -p $password --tenant $tenant &&
+              cd CHAT-MANAGEMENT-SERVICE &&
+              mvn clean &&
+              mvn clean package -DskipTests &&
+              az spring app deploy -n dev-chat-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/CHAT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+              echo "No files changed. Skipping deployment of CHAT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy GATEWAY-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"gateway-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd gateway-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n dev-gateway-service -g SIDevelopmentBE -s sidevspring --artifact-path target/GATEWAY-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of GATEWAY-SERVICE";
+              fi
+    stage:
+      - step:
+          name: Build and Deploy LOGIN-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"login-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd login-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-login-service -g SIDevelopmentBE -s sidevspring --artifact-path target/LOGIN-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of LOGIN-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy COMMONS-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"COMMONS-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd COMMONS-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-commons-service -g SIDevelopmentBE -s sidevspring --artifact-path target/COMMONS-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of COMMONS-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy DOCUMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"DOCUMENT-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd DOCUMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-document-service -g SIDevelopmentBE -s sidevspring --artifact-path target/DOCUMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of DOCUMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy MPOFFER-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"MPOFFER-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd MPOFFER-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-mpoffer-service -g SIDevelopmentBE -s sidevspring --artifact-path target/MPOFFER-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of MPOFFER-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy PROJECT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"PROJECT-MANAGEMENT/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd PROJECT-MANAGEMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-project-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/PROJECT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of PROJECT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy CHAT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"CHAT-MANAGEMENT/"* ]]; then
+              curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+              az config set extension.use_dynamic_install=yes_without_prompt &&
+              az login --service-principal -u $appId -p $password --tenant $tenant &&
+              cd CHAT-MANAGEMENT-SERVICE &&
+              mvn clean &&
+              mvn clean package -DskipTests &&
+              az spring app deploy -n stage-chat-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/CHAT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+              echo "No files changed. Skipping deployment of CHAT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy GATEWAY-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"gateway-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd gateway-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n stage-gateway-service -g SIDevelopmentBE -s sidevspring --artifact-path target/GATEWAY-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of GATEWAY-SERVICE";
+              fi
+    preprod:
+      - step:
+          name: Build and Deploy LOGIN-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"login-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd login-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-login-service -g SIDevelopmentBE -s sidevspring --artifact-path target/LOGIN-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of LOGIN-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy COMMONS-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"COMMONS-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd COMMONS-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-commons-service -g SIDevelopmentBE -s sidevspring --artifact-path target/COMMONS-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of COMMONS-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy DOCUMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"DOCUMENT-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd DOCUMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-document-service -g SIDevelopmentBE -s sidevspring --artifact-path target/DOCUMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of DOCUMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy MPOFFER-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"MPOFFER-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd MPOFFER-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-mpoffer-service -g SIDevelopmentBE -s sidevspring --artifact-path target/MPOFFER-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of MPOFFER-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy PROJECT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"PROJECT-MANAGEMENT/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd PROJECT-MANAGEMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-project-mgmt-service -g SIDevelopmentBE -s sidevspring --artifact-path target/PROJECT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of PROJECT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy CHAT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"CHAT-MANAGEMENT/"* ]]; then
+              curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+              az config set extension.use_dynamic_install=yes_without_prompt &&
+              az login --service-principal -u $appId -p $password --tenant $tenant &&
+              cd CHAT-MANAGEMENT-SERVICE &&
+              mvn clean &&
+              mvn clean package -DskipTests &&
+              az spring app deploy -n preprod-chat-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/CHAT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+              echo "No files changed. Skipping deployment of CHAT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy GATEWAY-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"gateway-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd gateway-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n preprod-gateway-service -g SIDevelopmentBE -s sidevspring --artifact-path target/GATEWAY-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of GATEWAY-SERVICE";
+              fi
+    new-production:
+      - step:
+          name: Build and Deploy LOGIN-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"login-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd login-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-login-service -g rgprodnode -s prodmicroservices --artifact-path target/LOGIN-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of LOGIN-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy COMMONS-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"COMMONS-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd COMMONS-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-commons-service -g rgprodnode -s prodmicroservices --artifact-path target/COMMONS-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of COMMONS-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy DOCUMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"DOCUMENT-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd DOCUMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-document-service -g rgprodnode -s prodmicroservices --artifact-path target/DOCUMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of DOCUMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy MPOFFER-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"MPOFFER-SERVICE/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd MPOFFER-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-mpoffer-service -g rgprodnode -s prodmicroservices --artifact-path target/MPOFFER-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of MPOFFER-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy PROJECT-MANAGEMENT-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"PROJECT-MANAGEMENT/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd PROJECT-MANAGEMENT-SERVICE &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-project-management-service -g SIDevelopmentBE -s sidevspring --artifact-path target/PROJECT-MANAGEMENT-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of PROJECT-MANAGEMENT-SERVICE";
+              fi
+      - step:
+          name: Build and Deploy GATEWAY-SERVICE
+          caches:
+            - maven
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - changed_files=$(git diff --name-only HEAD~1 HEAD)
+            - echo $changed_files
+            - if [[ "$changed_files" == *"gateway-service/"* ]]; then
+                curl -sL https://aka.ms/InstallAzureCLIDeb | bash &&
+                az config set extension.use_dynamic_install=yes_without_prompt &&
+                az login --service-principal -u $appId -p $password --tenant $tenant &&
+                cd gateway-service &&
+                mvn clean &&
+                mvn clean package -DskipTests &&
+                az account set -s 2ff14b67-0b59-4366-b97d-8ce42bb79c87 &&
+                az spring app deploy -n prod-gateway-service -g rgprodnode -s prodmicroservices --artifact-path target/GATEWAY-SERVICE-0.0.1-SNAPSHOT.jar;
+              else
+                echo "No files changed. Skipping deployment of GATEWAY-SERVICE";
+              fi
